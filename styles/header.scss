@@ -9,7 +9,7 @@
   &__logo {
     max-width: 5rem;
     width: 100%;
-    
+
     &-img {
       max-width: 5.25rem;
     }
@@ -21,7 +21,7 @@
     border-radius: 1rem;
     width: 100%;
     max-width: 43.75rem;
-    
+
     &-input {
       border: none;
       outline: none;
@@ -51,6 +51,7 @@
 
   &__clock {
     color: $primary-white;
+
     &-time {
       font-size: 3.25rem;
     }
