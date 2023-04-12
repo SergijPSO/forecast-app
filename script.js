@@ -80,6 +80,7 @@ if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(getCoordinates);
 } else {
   console.log("Geolocation is not supported by this browser.");
+  setUpInterface()
 }
 
 function getCoordinates(position) {
