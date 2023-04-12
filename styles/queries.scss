@@ -1,0 +1,44 @@
+@media all and (max-width: 48rem) {
+  .app {
+    &__wrapper {
+      .app {
+        &__header {
+          flex-wrap: wrap;
+          padding: 0 1.25rem;
+          max-width: unset;
+        }
+
+        &__search {
+          order: 3;
+          padding: .625rem 0;
+          max-width: unset;
+
+          &-input {
+            padding: .625rem;
+          }
+        }
+
+        &__weather {
+          &__current {
+            flex-wrap: wrap-reverse;
+            padding: 1rem 1.25rem;
+          }
+
+          &__week {
+            max-height: unset;
+            height: 100%;
+          }
+
+          height: unset;
+
+          &__details,
+          &__widget {
+            flex-grow: 1;
+          }
+
+        }
+      }
+    }
+  }
+
+}

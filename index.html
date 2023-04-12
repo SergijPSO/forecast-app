@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <title>Weather Forecast</title>
+</head>
+
+  <body>
+    <div class="app__wrapper">
+      
+      <header class="app__header">
+        <div class="app__logo">
+          <a href="#" class="app__logo-link">
+            <img src="./images/logo.png" alt="logo image" class="app__logo-img"/>
+          </a>
+        </div>
+    
+        <div class="app__search">
+          <input class="app__search-input" autocomplete="on" id="location" placeholder="City, County" type="text"/>
+          <button  id="locate" class="app__form-buton"></button>
+        </div>
+
+        <div class="app__clock">
+          <span id="clock" class="app__clock-time"></span>
+        </div>
+      </header>
+    
+      <main class="app__content">
+        <div class="app__weather">
+
+          <div class="app__weather__current">
+
+            <div class="app__weather__details">
+              <div class="app__weather__details-head">
+                <span class="app__weather__details-head__title"></span>
+                <span class="app__weather__details-head__date"></span>
+              </div>
+
+              <ul class="app__weather__details-properties">
+                <li class="app__weather__details-properties__item">
+                  <span class="app__weather__details-properties__label">Temperature: </span>
+                  <span class="app__weather__details-properties__value app__weather__details-properties__value--temp"></span>
+                </li>
+                <li class="app__weather__details-properties__item">
+                  <span class="app__weather__details-properties__label">Feelslike: </span>
+                  <span class="app__weather__details-properties__value app__weather__details-properties__value--feelslike"></span>
+                </li>
+                <li class="app__weather__details-properties__item">
+                  <span class="app__weather__current-day__item-propertie">Maximum: </span>
+                  <span class="app__weather__details-properties__value app__weather__details-properties__value--tempmax"></span>
+                </li>
+                <li class="app__weather__details-properties__item">
+                  <span class="app__weather__details-properties__label">Minimum: </span>
+                  <span class="app__weather__details-properties__value app__weather__details-properties__value--tempmin"></span>
+                </li>
+                <li class="app__weather__details-properties__item">
+                  <span class="app__weather__details-properties__label">Humidity: </span>
+                  <span class="app__weather__details-properties__value app__weather__details-properties__value--humidity"></span>
+                </li>
+                <li class="app__weather__details-properties__item">
+                  <span class="app__weather__details-properties__label">Pressure: </span>
+                  <span class="app__weather__details-properties__value app__weather__details-properties__value--pressure"></span>
+                </li>
+                <li class="app__weather__details-properties__item">
+                  <span class="app__weather__details-properties__label">Sunrise at: </span>
+                  <span class="app__weather__details-properties__value app__weather__details-properties__value--sunrise"></span>
+                </li>
+                <li class="app__weather__details-properties__item">
+                  <span class="app__weather__details-properties__label">Sunset at: </span>
+                  <span class="app__weather__details-properties__value app__weather__details-properties__value--sunset"></span>
+                </li>
+              </ul>
+            </div>  
+
+            <div class="app__weather__widget">
+              <div class="app__weather__widget__status">
+                <span class="app__weather__widget__location"></span>
+                <img src="" class="app__weather__widget__icon">
+              </div>
+             
+              <p class="app__weather__widget__conditions">
+              </p>
+            </div>
+          </div>
+
+          <div class="app__weather__week">
+            <div class="app__weather__week-days">
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+    
+    <script src="./script.js"></script>
+  </body>
+</html>

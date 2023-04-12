@@ -1,0 +1,58 @@
+.app {
+  &__header {
+    padding: 0 3rem;
+    @include flex-between;
+    align-items: center;
+    border-bottom: .063rem solid $primary-tranparent-white;
+  }
+
+  &__logo {
+    max-width: 5rem;
+    width: 100%;
+    
+    &-img {
+      max-width: 5.25rem;
+    }
+  }
+
+  &__search {
+    display: flex;
+    padding: 1.75rem;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 43.75rem;
+    
+    &-input {
+      border: none;
+      outline: none;
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+      font-size: 1.125rem;
+      padding: 1.125rem;
+      width: 100%;
+
+      &::placeholder {
+        font-size: 1.125rem;
+      }
+    }
+  }
+
+  &__form-buton {
+    padding: .625rem 1.25rem;
+    border: .063rem solid $primary-white;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background-color: $primary-white;
+    background-image: url('/images/serach.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+  }
+
+  &__clock {
+    color: $primary-white;
+    &-time {
+      font-size: 3.25rem;
+    }
+  }
+}
