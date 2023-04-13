@@ -38,51 +38,57 @@ async function getLocation(location) {
 
 //Using api to get city name
 function getCity(latitude, longitude) {
-  let result;
-  fetch(
-    `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${geoapifyApiKey}`
-  )
+  const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${geoapifyApiKey}`;
+  fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      result = data;
-    })
-    .catch((error) => {
-      console.log("error", error);
-    })
-    .finally(() => {
+      const result = data;
       if (
         result.features[0].properties.city !== undefined ||
         result.features[0].properties.city !== null
       ) {
-        currentLocation.innerHTML = `${result.features[0].properties.city}`;
+        console.log(result.features[0].properties.city);
+        // changeBackground(icon)
+        currentLocation.textContent = `${result.features[0].properties.city}`;
       } else {
         return;
       }
+    })
+    .catch((error) => {
+      console.log("error", error);
     });
 }
+
 //Using API to fetch weather data
 async function getWeatherData(latitude, longitude, city) {
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C%20${longitude}?unitGroup=metric&include=current%2Cdays&key=EDHKHG9ZLTHQH4GDGL22UFT76&contentType=json`;
   await fetch(url)
     .then((response) => response.json())
     .then((data) => {
+      changeBackground(data.days[0].icon);
       setUpInterface(data, city);
     })
     .catch((error) => console.error(error))
     .finally(() => {
-      appOverlay.remove();
-      currentWeatherDetails.style.visibility = "visible";
-      appWeek.style.visibility = "visible";
+      switchVisibility();
     });
 }
 
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(getCoordinates);
+//Checking if geolocation is allowed
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(getCoordinates, errorCallback);
 } else {
   console.log("Geolocation is not supported by this browser.");
   setUpInterface()
 }
 
+//Closing overlay if geolocation is not allowed
+function errorCallback(error) {
+  console.log("Error getting location: " + error.message);
+  switchVisibility();
+}
+
+//Getting coordinates if geolocation is allowed
 function getCoordinates(position) {
   getWeatherData(position.coords.latitude, position.coords.longitude);
   getCity(position.coords.latitude, position.coords.longitude);
@@ -113,6 +119,13 @@ function removePreviousContent() {
       nodeList[i].parentNode.removeChild(nodeList[i]);
     }
   }
+}
+
+// Close visibilty func
+function switchVisibility() {
+  appOverlay.remove();
+  currentWeatherDetails.style.visibility = "visible";
+  appWeek.style.visibility = "visible";
 }
 
 //Creating wee days cards and passing data
@@ -253,8 +266,45 @@ function setCurrentDayData(weatherData, city) {
   );
   currentDayConditions.innerHTML = `${weatherData.days[0].description}`;
 
+  if (weatherData.days[0].icon === "rain") {
+    console.log("Yes");
+  } else {
+    console.log("No");
+  }
+  console.log(weatherData.days[0].icon);
+
   currentLocation = document.querySelector(".app__weather__widget__location");
-  currentLocation.innerHTML = city;
+  currentLocation.textContent = city;
+}
+
+//Changing background according to tht weather
+function changeBackground(icon) {
+  switch (icon) {
+    case "rain":
+    case "showers-day":
+    case "showers-night":
+    case "thunder-rain":
+    case "thunder-showers-day":
+    case "thunder-showers-night":
+      document.body.style.backgroundImage = 'url("./images/rainy.jpg")';
+      break;
+    case "clear-day":
+    case "clear-night":
+      document.body.style.backgroundImage = 'url("./images/clear.jpg")';
+      break;
+    case "fog":
+      document.body.style.backgroundImage = 'url("./images/foggy.jpeg")';
+      break;
+    case "snow-showers-day":
+    case "snow-showers-night":
+    case "snow":
+      document.body.style.backgroundImage = 'url("./images/snowy.jpeg")';
+      break;
+    default:
+      // default value if no other cases match
+      document.body.style.backgroundImage = 'url("./images/default.jpeg")';
+      break;
+  }
 }
 
 //To convert epochSeconds to day of week name
