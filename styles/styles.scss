@@ -3,41 +3,13 @@
 @import 'mixins';
 @import 'variables';
 @import 'header';
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  list-style: none;
-  font-family: 'Gill Sans MT', sans-serif, sans-serif;
-
-  &::-webkit-scrollbar {
-    width: .125em;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $primary-tranparent-white;
-    border-radius: .625em;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: $primary-green;
-    cursor: pointer;
-  }
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+@import 'normalize';
 
 body {
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url('../images/default.jpeg');
 }
 
 .app {
@@ -170,6 +142,7 @@ body {
         width: 4.5rem;
       }
     }
+
     // Current weather widget styles ends
 
     //Week days styles starts
@@ -238,9 +211,7 @@ body {
           text-align: center;
         }
       }
-
       //Week days styles ends
     }
   }
-
 }

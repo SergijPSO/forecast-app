@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: 'Gill Sans MT', sans-serif, sans-serif;
+
+  &::-webkit-scrollbar {
+    width: .125em;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $primary-tranparent-white;
+    border-radius: .625em;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $primary-green;
+    cursor: pointer;
+  }
+}

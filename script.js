@@ -7,6 +7,14 @@ const currentWeatherDetails = document.querySelector(".app__weather__details");
 const appWeek = document.querySelector(".app__weather__week");
 const celsius = "&#8451";
 
+document.addEventListener("DOMContentLoaded", function () {
+  let bgImage = new Image();
+  bgImage.src = "./images/default.jpeg";
+  bgImage.onload = function () {
+    document.body.style.backgroundImage = "url(" + bgImage.src + ")";
+  };
+});
+
 //Getting city name from input
 let locationPoint = "";
 locateButton.addEventListener("click", () => {
@@ -23,12 +31,11 @@ async function getLocation(location) {
     );
     const data = await response.json();
     const resulstArr = [data.features[0].properties];
-    let city = data.query.parsed.city.toLocaleString("en");
-
-    console.log(`getLocation -> ${city}`);
+    let city = data.query.parsed.city;
     resulstArr.map((item) => {
       let locationLatitulde = item.lat;
       let locationLongitude = item.lon;
+
       getWeatherData(locationLatitulde, locationLongitude, city);
     });
   } catch (error) {
@@ -48,7 +55,6 @@ function getCity(latitude, longitude) {
         result.features[0].properties.city !== null
       ) {
         console.log(result.features[0].properties.city);
-        // changeBackground(icon)
         currentLocation.textContent = `${result.features[0].properties.city}`;
       } else {
         return;
@@ -266,7 +272,7 @@ function setCurrentDayData(weatherData, city) {
   currentDayConditions.innerHTML = `${weatherData.days[0].description}`;
 
   currentLocation = document.querySelector(".app__weather__widget__location");
-  currentLocation.textContent = city;
+  currentLocation.innerHTML = city;
 }
 
 //Changing background according to tht weather
