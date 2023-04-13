@@ -97,18 +97,11 @@
   cursor: pointer;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
 body {
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url("../images/default.jpeg");
 }
 
 .app__spinner {
