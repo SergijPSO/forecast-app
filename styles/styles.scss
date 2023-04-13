@@ -37,7 +37,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url('../images/clear.jpg');
+  // background-image: url('../images/foggy.jpeg');
 }
 
 .app {
@@ -153,6 +153,7 @@ body {
       &__status {
         padding-bottom: 1.5rem;
         @include flex-between;
+        align-items: center;
         height: 100%;
         max-height: 6.25rem;
       }
