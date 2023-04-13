@@ -65,7 +65,7 @@ async function getWeatherData(latitude, longitude, city) {
   await fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      changeBackground(data.days[0].icon);
+      // changeBackground(data.days[0].icon);
       setUpInterface(data, city);
     })
     .catch((error) => console.error(error))
@@ -264,13 +264,6 @@ function setCurrentDayData(weatherData, city) {
     ".app__weather__widget__conditions"
   );
   currentDayConditions.innerHTML = `${weatherData.days[0].description}`;
-
-  if (weatherData.days[0].icon === "rain") {
-    console.log("Yes");
-  } else {
-    console.log("No");
-  }
-  console.log(weatherData.days[0].icon);
 
   currentLocation = document.querySelector(".app__weather__widget__location");
   currentLocation.textContent = city;
