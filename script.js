@@ -71,7 +71,7 @@ async function getWeatherData(latitude, longitude, city) {
   await fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      // changeBackground(data.days[0].icon);
+      changeBackground(data.days[0].icon);
       setUpInterface(data, city);
     })
     .catch((error) => console.error(error))
@@ -273,7 +273,7 @@ function setCurrentDayData(weatherData, city) {
   currentDayConditions.innerHTML = `${weatherData.days[0].description}`;
 
   currentLocation = document.querySelector(".app__weather__widget__location");
-  currentLocation.innerHTML = city;
+  currentLocation.textContent = city;
 }
 
 //Changing background according to tht weather
