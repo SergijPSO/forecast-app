@@ -17,9 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Getting city name from input
 let locationPoint = "";
-locateButton.addEventListener("click", () => {
+function handleLocationInput() {
   locationPoint = inputLocation.value.toLocaleString("en");
   getLocation(locationPoint);
+}
+
+// Add event listener for clicking the locateButton
+locateButton.addEventListener("click", handleLocationInput);
+
+// Add event listener for pressing the "Enter" key in the inputLocation field
+inputLocation.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    handleLocationInput();
+  }
 });
 
 //Fetching coordinates
@@ -55,9 +65,7 @@ function getCity(latitude, longitude) {
         result.features[0].properties.city !== undefined ||
         result.features[0].properties.city !== null
       ) {
-        // console.log(result.features[0].properties.city);
         currentLocation.textContent = `${result.features[0].properties.city}`;
-        // console.log(currentLocation.innerText);
       } else {
         return;
       }
@@ -283,12 +291,8 @@ function setCurrentDayData(weatherData, city) {
   );
   currentDayConditions.innerHTML = `${weatherData.days[0].description}`;
 
-  // currentLocation = document.querySelector(".app__weather__widget__location");
-  // currentLocation.textContent = city;
-
-  // console.log(currentLocation.innerText);
-  // console.log(weatherData);
-  // console.log(city);
+  currentLocation = document.querySelector(".app__weather__widget__location");
+  currentLocation.textContent = city;
 }
 
 //Changing background according to tht weather
