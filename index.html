@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" href="./images/favicon.png" />
   <script src="./script.js" defer></script>
   <title>Forecast to Ride</title>
-  
+
 </head>
 
 <body class="app">
@@ -23,7 +23,8 @@
       </div>
 
       <div class="app__search">
-        <input class="app__search-input" autocomplete="on" id="location" placeholder="City, County" type="text" />
+        <input class="app__search-input" autocomplete="on" id="location" placeholder="City, County" type="text"
+          oninput="validateEnglishInput(this)" />
         <button id="locate" class="app__form-buton"></button>
       </div>
 
@@ -97,7 +98,7 @@
             </p>
           </div>
         </div>
- 
+
         <div class="app__weather__week">
           <div class="app__weather__week-days">
           </div>

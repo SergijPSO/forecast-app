@@ -42,7 +42,7 @@ async function getLocation(location) {
     console.error("Error", error);
   }
 }
-
+let currentCity = "";
 //Using api to get city name
 function getCity(latitude, longitude) {
   const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${geoapifyApiKey}`;
@@ -50,12 +50,14 @@ function getCity(latitude, longitude) {
     .then((response) => response.json())
     .then((data) => {
       const result = data;
+      currentLocation.textContent = `${result.features[0].properties.city}`;
       if (
         result.features[0].properties.city !== undefined ||
         result.features[0].properties.city !== null
       ) {
-        console.log(result.features[0].properties.city);
+        // console.log(result.features[0].properties.city);
         currentLocation.textContent = `${result.features[0].properties.city}`;
+        // console.log(currentLocation.innerText);
       } else {
         return;
       }
@@ -63,6 +65,15 @@ function getCity(latitude, longitude) {
     .catch((error) => {
       console.log("error", error);
     });
+}
+
+// input allow only english charachters
+function validateEnglishInput(inputElement) {
+  const inputValue = inputElement.value;
+  const englishLetters = /^[A-Za-z\s\-]*$/;
+  if (!englishLetters.test(inputValue)) {
+    inputElement.value = inputValue.replace(/[^A-Za-z\s\-]/g, "");
+  }
 }
 
 //Using API to fetch weather data
@@ -85,7 +96,7 @@ if ("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(getCoordinates, errorCallback);
 } else {
   console.log("Geolocation is not supported by this browser.");
-  setUpInterface()
+  setUpInterface();
 }
 
 //Closing overlay if geolocation is not allowed
@@ -272,8 +283,12 @@ function setCurrentDayData(weatherData, city) {
   );
   currentDayConditions.innerHTML = `${weatherData.days[0].description}`;
 
-  currentLocation = document.querySelector(".app__weather__widget__location");
-  currentLocation.textContent = city;
+  // currentLocation = document.querySelector(".app__weather__widget__location");
+  // currentLocation.textContent = city;
+
+  // console.log(currentLocation.innerText);
+  // console.log(weatherData);
+  // console.log(city);
 }
 
 //Changing background according to tht weather
