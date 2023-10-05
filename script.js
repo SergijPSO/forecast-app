@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   bgImage.onload = function () {
     document.body.style.backgroundImage = "url(" + bgImage.src + ")";
   };
+  getCoordinates().onload;
 });
 
 //Getting city name from input
@@ -32,7 +33,7 @@ inputLocation.addEventListener("keydown", (event) => {
   }
 });
 
-//Fetching coordinates
+// Fetching coordinates
 const geoapifyApiKey = "2e680da3a08c43bc875800cd7c1bc017";
 async function getLocation(location) {
   try {
@@ -52,7 +53,7 @@ async function getLocation(location) {
     console.error("Error", error);
   }
 }
-let currentCity = "";
+
 //Using api to get city name
 function getCity(latitude, longitude) {
   const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${geoapifyApiKey}`;
@@ -75,7 +76,7 @@ function getCity(latitude, longitude) {
     });
 }
 
-// input allow only english charachters
+// Input allow only english charachters
 function validateEnglishInput(inputElement) {
   const inputValue = inputElement.value;
   const englishLetters = /^[A-Za-z\s\-]*$/;
