@@ -2,7 +2,9 @@
 // Variables
 let inputLocation = document.getElementById("location");
 const locateButton = document.getElementById("locate");
-let currentLocation = document.querySelector(".app__weather__widget__location");
+const currentLocation = document.querySelector(
+  ".app__weather__widget__location"
+);
 const currentWeatherDetails = document.querySelector(".app__weather__details");
 const appWeek = document.querySelector(".app__weather__week");
 const celsius = "&#8451";
@@ -16,7 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
   getCoordinates().onload;
 });
 
-//Getting city name from input
+// Getting coordinates if geolocation is allowed
+function getCoordinates(position) {
+  getWeatherData(position.coords.latitude, position.coords.longitude);
+  getCity(position.coords.latitude, position.coords.longitude);
+  console.log(position.coords.latitude, position.coords.longitude);
+}
+
+// Getting city name from input
 let locationPoint = "";
 function handleLocationInput() {
   locationPoint = inputLocation.value.toLocaleString("en");
@@ -112,12 +121,6 @@ if ("geolocation" in navigator) {
 function errorCallback(error) {
   console.log("Error getting location: " + error.message);
   switchVisibility();
-}
-
-//Getting coordinates if geolocation is allowed
-function getCoordinates(position) {
-  getWeatherData(position.coords.latitude, position.coords.longitude);
-  getCity(position.coords.latitude, position.coords.longitude);
 }
 
 //Creating overlay and spinner elements
@@ -294,6 +297,7 @@ function setCurrentDayData(weatherData, city) {
 
   currentLocation = document.querySelector(".app__weather__widget__location");
   currentLocation.textContent = city;
+  console.log(weatherData);
 }
 
 //Changing background according to tht weather
