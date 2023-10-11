@@ -16,7 +16,6 @@ let locationPoint: string = "";
 document.addEventListener("DOMContentLoaded", function () {
   let bgImage = new Image();
   bgImage.src = "./images/default.jpeg";
-  getCoordinates();
   bgImage.onload = function (): void {
     document.body.style.backgroundImage = "url(" + bgImage.src + ")";
   };
@@ -24,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Getting city name from input
 function handleLocationInput(): void {
-  // locationPoint = inputLocation.value;
+  locationPoint = inputLocation.value.toLocaleString("en");
   getLocation(locationPoint);
 }
 
@@ -47,10 +46,10 @@ async function getLocation(location: string): Promise<void> {
     const data = await response.json();
     const resulstArr = [data.features[0].properties];
     let city = data.query.parsed.city;
+    console.log(city);
     resulstArr.map((item) => {
       let locationLatitulde = item.lat;
       let locationLongitude = item.lon;
-
       getWeatherData(locationLatitulde, locationLongitude, city);
     });
   } catch (error) {
@@ -79,7 +78,7 @@ function getCity(latitude: number, longitude: number): void {
 }
 
 // Input allow only English characters
-function validateEnglishInput(inputElement: HTMLInputElement): void {
+function validateEnglishInput(inputElement: HTMLInputElement): any {
   const inputValue = inputElement.value;
   const englishLetters = /^[A-Za-z\s\-]*$/;
   if (!englishLetters.test(inputValue)) {
@@ -87,7 +86,7 @@ function validateEnglishInput(inputElement: HTMLInputElement): void {
   }
 }
 
-// Using API to fetch weather data
+// Using API to fetch weather data'
 async function getWeatherData(
   latitude: number,
   longitude: number,
@@ -122,9 +121,11 @@ function errorCallback(error: GeolocationPositionError): void {
 }
 
 // Getting coordinates if geolocation is allowed
-function getCoordinates(position: GeolocationPosition): void {
-  getWeatherData(position.coords.latitude, position.coords.longitude);
+function getCoordinates(position: GeolocationPosition): any {
+  getWeatherData(position.coords.latitude, position.coords.longitude); //Uncaught TypeError: Cannot read properties of undefined (reading 'coords') at getCoordinates
   getCity(position.coords.latitude, position.coords.longitude);
+  console.log(position);
+  // return position;
 }
 
 // Creating overlay and spinner elements
@@ -138,6 +139,7 @@ appOverlay.appendChild(appSpinner);
 
 // Creating app interface
 function setUpInterface(weatherData: any, city?: string): void {
+  console.log(weatherData + " !!!!!");
   removePreviousContent();
   setCurrentDayData(weatherData, city || "city is undefined");
   setWeeksData(weatherData, city);
@@ -222,8 +224,7 @@ function setWeeksData(weatherData: any, city?: string): void {
     summary.classList.add("app__weather__week-day__description");
     weekDayContent.appendChild(summary);
     summary.innerHTML = `${day.description}`;
-
-    console.log(city);
+    // console.log(city);
   });
 }
 

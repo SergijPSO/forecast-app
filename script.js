@@ -46,14 +46,14 @@ var locationPoint = "";
 document.addEventListener("DOMContentLoaded", function () {
     var bgImage = new Image();
     bgImage.src = "./images/default.jpeg";
+    // getCoordinates();
     bgImage.onload = function () {
         document.body.style.backgroundImage = "url(" + bgImage.src + ")";
     };
-    getCoordinates();
 });
 //Getting city name from input
 function handleLocationInput() {
-    // locationPoint = inputLocation.value;
+    locationPoint = inputLocation.value.toLocaleString("en");
     getLocation(locationPoint);
 }
 // Add event listener for clicking the locateButton
@@ -125,7 +125,7 @@ function validateEnglishInput(inputElement) {
         inputElement.value = inputValue.replace(/[^A-Za-z\s\-]/g, "");
     }
 }
-// Using API to fetch weather data
+// Using API to fetch weather data'
 function getWeatherData(latitude, longitude, city) {
     return __awaiter(this, void 0, void 0, function () {
         var url;
@@ -164,8 +164,10 @@ function errorCallback(error) {
 }
 // Getting coordinates if geolocation is allowed
 function getCoordinates(position) {
-    getWeatherData(position.coords.latitude, position.coords.longitude);
+    getWeatherData(position.coords.latitude, position.coords.longitude); //Uncaught TypeError: Cannot read properties of undefined (reading 'coords') at getCoordinates
     getCity(position.coords.latitude, position.coords.longitude);
+    console.log(position);
+    // return position;
 }
 // Creating overlay and spinner elements
 var appOverlay = document.createElement("div");
@@ -243,7 +245,7 @@ function setWeeksData(weatherData, city) {
         summary.classList.add("app__weather__week-day__description");
         weekDayContent.appendChild(summary);
         summary.innerHTML = "".concat(day.description);
-        console.log(city);
+        // console.log(city);
     });
 }
 // Passing data to the current day fields
