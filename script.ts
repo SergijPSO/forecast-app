@@ -46,10 +46,11 @@ async function getLocation(location: string): Promise<void> {
     const data = await response.json();
     const resulstArr = [data.features[0].properties];
     let city = data.query.parsed.city;
-    console.log(city);
+
     resulstArr.map((item) => {
       let locationLatitulde = item.lat;
       let locationLongitude = item.lon;
+      console.log(city);
       getWeatherData(locationLatitulde, locationLongitude, city);
     });
   } catch (error) {
@@ -97,6 +98,7 @@ async function getWeatherData(
   await fetch(url)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       changeBackground(data.days[0].icon);
       setUpInterface(data, city);
     })
@@ -122,10 +124,8 @@ function errorCallback(error: GeolocationPositionError): void {
 
 // Getting coordinates if geolocation is allowed
 function getCoordinates(position: GeolocationPosition): any {
-  getWeatherData(position.coords.latitude, position.coords.longitude); //Uncaught TypeError: Cannot read properties of undefined (reading 'coords') at getCoordinates
+  getWeatherData(position.coords.latitude, position.coords.longitude);
   getCity(position.coords.latitude, position.coords.longitude);
-  console.log(position);
-  // return position;
 }
 
 // Creating overlay and spinner elements
@@ -139,7 +139,6 @@ appOverlay.appendChild(appSpinner);
 
 // Creating app interface
 function setUpInterface(weatherData: any, city?: string): void {
-  console.log(weatherData + " !!!!!");
   removePreviousContent();
   setCurrentDayData(weatherData, city || "city is undefined");
   setWeeksData(weatherData, city);
@@ -224,7 +223,7 @@ function setWeeksData(weatherData: any, city?: string): void {
     summary.classList.add("app__weather__week-day__description");
     weekDayContent.appendChild(summary);
     summary.innerHTML = `${day.description}`;
-    // console.log(city);
+    console.log(`${city} from setUpInterface`);
   });
 }
 

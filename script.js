@@ -46,7 +46,6 @@ var locationPoint = "";
 document.addEventListener("DOMContentLoaded", function () {
     var bgImage = new Image();
     bgImage.src = "./images/default.jpeg";
-    // getCoordinates();
     bgImage.onload = function () {
         document.body.style.backgroundImage = "url(" + bgImage.src + ")";
     };
@@ -84,6 +83,7 @@ function getLocation(location) {
                     resulstArr.map(function (item) {
                         var locationLatitulde = item.lat;
                         var locationLongitude = item.lon;
+                        console.log(city_1);
                         getWeatherData(locationLatitulde, locationLongitude, city_1);
                     });
                     return [3 /*break*/, 4];
@@ -136,6 +136,7 @@ function getWeatherData(latitude, longitude, city) {
                     return [4 /*yield*/, fetch(url)
                             .then(function (response) { return response.json(); })
                             .then(function (data) {
+                            console.log(data);
                             changeBackground(data.days[0].icon);
                             setUpInterface(data, city);
                         })
@@ -164,10 +165,8 @@ function errorCallback(error) {
 }
 // Getting coordinates if geolocation is allowed
 function getCoordinates(position) {
-    getWeatherData(position.coords.latitude, position.coords.longitude); //Uncaught TypeError: Cannot read properties of undefined (reading 'coords') at getCoordinates
+    getWeatherData(position.coords.latitude, position.coords.longitude);
     getCity(position.coords.latitude, position.coords.longitude);
-    console.log(position);
-    // return position;
 }
 // Creating overlay and spinner elements
 var appOverlay = document.createElement("div");
@@ -245,7 +244,7 @@ function setWeeksData(weatherData, city) {
         summary.classList.add("app__weather__week-day__description");
         weekDayContent.appendChild(summary);
         summary.innerHTML = "".concat(day.description);
-        // console.log(city);
+        console.log("".concat(city, " from setUpInterface"));
     });
 }
 // Passing data to the current day fields
