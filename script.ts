@@ -12,6 +12,7 @@ const appWeek: HTMLElement | null = document.querySelector(
 );
 const celsius: string = "&#8451";
 let locationPoint: string = "";
+const geoapifyApiKey: string = "2e680da3a08c43bc875800cd7c1bc017";
 
 document.addEventListener("DOMContentLoaded", function () {
   let bgImage = new Image();
@@ -37,8 +38,6 @@ inputLocation?.addEventListener("keydown", (event) => {
 });
 
 // Fetching coordinates
-const geoapifyApiKey: string = "2e680da3a08c43bc875800cd7c1bc017";
-
 async function getLocation(location: string): Promise<void> {
   try {
     const response = await fetch(
@@ -51,7 +50,7 @@ async function getLocation(location: string): Promise<void> {
     resulstArr.map((item) => {
       let locationLatitulde = item.lat;
       let locationLongitude = item.lon;
-      console.log(city);
+      console.log(city) + "???!!!!";
       getWeatherData(locationLatitulde, locationLongitude, city);
     });
   } catch (error) {
@@ -60,7 +59,7 @@ async function getLocation(location: string): Promise<void> {
 }
 
 //Get geolocation and rest data
-function getCity(latitude: number, longitude: number): void {
+function getCity(latitude: number, longitude: number): any {
   const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${geoapifyApiKey}`;
   fetch(url)
     .then((response) => response.json())
@@ -68,10 +67,8 @@ function getCity(latitude: number, longitude: number): void {
       const result = data;
       const city = result.features[0]?.properties?.city;
       if (city !== undefined && city !== null) {
-        const locationElement = currentLocation as HTMLElement;
-        locationElement.textContent = city;
-        console.log(city + "<-!!!");
-        return city;
+        currentLocation.textContent = city;
+        console.log(currentLocation.textContent + "<--!!!textContent!!!");
       } else {
         return;
       }
