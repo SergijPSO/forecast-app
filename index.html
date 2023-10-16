@@ -7,9 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/styles.css">
   <link rel="icon" type="image/png" href="./images/favicon.png" />
-  <script src="./script.js" defer></script>
+  <script src="./dist/script.js" defer></script>
   <title>Forecast to Ride</title>
-
 </head>
 
 <body class="app">
@@ -25,7 +24,7 @@
       <div class="app__search">
         <input class="app__search-input" autocomplete="on" id="location" placeholder="City, County" type="text"
           oninput="validateEnglishInput(this)" />
-        <button id="locate" class="app__form-buton"></button>
+        <button id="locate" class="app__form-buton" type="submit"></button>
       </div>
 
       <div class="app__clock">
