@@ -1,7 +1,7 @@
 "use strict";
 
 // Variables
-const inputLocation = document.getElementById("location");
+const inputLocation = document.getElementById("location") as HTMLInputElement;
 const locateButton = document.getElementById("locate");
 let currentLocation: HTMLElement | null = document.querySelector(
   ".app__weather__widget__location"
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Getting city name from input
 function handleLocationInput(): void {
-  locationPoint = inputLocation.value.toLocaleString("en");
+  locationPoint = inputLocation.value.toLocaleString();
   getLocation(locationPoint);
 }
 
@@ -38,6 +38,7 @@ inputLocation?.addEventListener("keydown", (event) => {
 
 // Fetching coordinates
 const geoapifyApiKey: string = "2e680da3a08c43bc875800cd7c1bc017";
+
 async function getLocation(location: string): Promise<void> {
   try {
     const response = await fetch(
@@ -58,7 +59,7 @@ async function getLocation(location: string): Promise<void> {
   }
 }
 
-//Using api to get city name
+//Get geolocation and rest data
 function getCity(latitude: number, longitude: number): void {
   const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${geoapifyApiKey}`;
   fetch(url)
@@ -69,6 +70,8 @@ function getCity(latitude: number, longitude: number): void {
       if (city !== undefined && city !== null) {
         const locationElement = currentLocation as HTMLElement;
         locationElement.textContent = city;
+        console.log(city + "<-!!!");
+        return city;
       } else {
         return;
       }
@@ -84,10 +87,11 @@ function validateEnglishInput(inputElement: HTMLInputElement): any {
   const englishLetters = /^[A-Za-z\s\-]*$/;
   if (!englishLetters.test(inputValue)) {
     inputElement.value = inputValue.replace(/[^A-Za-z\s\-]/g, "");
+    console.log(inputValue + "!!!!!!!!!!");
   }
 }
 
-// Using API to fetch weather data'
+// Using API to fetch weather data
 async function getWeatherData(
   latitude: number,
   longitude: number,
@@ -98,7 +102,7 @@ async function getWeatherData(
   await fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(`From the fetch: ${data} <--!!!`);
       changeBackground(data.days[0].icon);
       setUpInterface(data, city);
     })
@@ -138,9 +142,9 @@ appSpinner.classList.add("app__spinner");
 appOverlay.appendChild(appSpinner);
 
 // Creating app interface
-function setUpInterface(weatherData: any, city?: string): void {
+function setUpInterface(weatherData: any, city: string): void {
   removePreviousContent();
-  setCurrentDayData(weatherData, city || "city is undefined");
+  setCurrentDayData(weatherData, city);
   setWeeksData(weatherData, city);
   convertDate(weatherData.currentConditions);
 }
@@ -161,7 +165,7 @@ function switchVisibility(): void {
 }
 
 // Creating week days cards and passing data
-function setWeeksData(weatherData: any, city?: string): void {
+function setWeeksData(weatherData: any, city: string): void {
   weatherData.days.forEach((day: any) => {
     const weekDay = document.createElement("div");
     weekDay.classList.add("app__weather__week-day");
@@ -194,9 +198,9 @@ function setWeeksData(weatherData: any, city?: string): void {
     const tempCurrent = document.createElement("span");
     tempCurrent.classList.add("app__weather__week-day__temp");
     weekDayContent.appendChild(tempCurrent);
-    tempCurrent.innerHTML = `Temperature: ${roundToClosestInt(
-      day.temp
-    )}${celsius}`;
+    tempCurrent.innerHTML = `
+
+Temperature: ${roundToClosestInt(day.temp)}${celsius}`;
 
     const feelsLike = document.createElement("span");
     feelsLike.classList.add("app__weather__week-day__feelslike");
@@ -232,6 +236,7 @@ function setCurrentDayData(weatherData: any, city: string): void {
   const currentDateElement = document.querySelector(
     ".app__weather__details-head__date"
   );
+
   if (currentDateElement) {
     currentDateElement.innerHTML = ` ${dateFormatCurrentDay(
       weatherData.days[0]?.datetimeEpoch ?? 0
@@ -345,6 +350,7 @@ function setCurrentDayData(weatherData: any, city: string): void {
 function changeBackground(icon: string): void {
   switch (icon) {
     case "rain":
+
     case "showers-day":
     case "showers-night":
     case "thunder-rain":
@@ -389,7 +395,6 @@ function convertDate(epochSeconds: number): string {
 // Formatting date for the current day section
 function dateFormatCurrentDay(currentDayEpochSeconds: number): string {
   const date = new Date(currentDayEpochSeconds * 1000);
-  const options = { month: "long", day: "numeric" };
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
