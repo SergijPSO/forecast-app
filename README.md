@@ -1,5 +1,5 @@
 # forecast-app
 
-Demo libnk:
+Demo link:
 sergijpso.github.io/forecast-app/
  
