@@ -16,6 +16,7 @@ const currentWeatherDetails = document.querySelector(".app__weather__details");
 const appWeek = document.querySelector(".app__weather__week");
 const celsius = "&#8451";
 let locationPoint = "";
+const geoapifyApiKey = "2e680da3a08c43bc875800cd7c1bc017";
 document.addEventListener("DOMContentLoaded", function () {
     let bgImage = new Image();
     bgImage.src = "./images/default.jpeg";
@@ -37,7 +38,6 @@ inputLocation === null || inputLocation === void 0 ? void 0 : inputLocation.addE
     }
 });
 // Fetching coordinates
-const geoapifyApiKey = "2e680da3a08c43bc875800cd7c1bc017";
 function getLocation(location) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -48,7 +48,7 @@ function getLocation(location) {
             resulstArr.map((item) => {
                 let locationLatitulde = item.lat;
                 let locationLongitude = item.lon;
-                console.log(city);
+                console.log(city) + "???!!!!";
                 getWeatherData(locationLatitulde, locationLongitude, city);
             });
         }
@@ -67,10 +67,8 @@ function getCity(latitude, longitude) {
         const result = data;
         const city = (_b = (_a = result.features[0]) === null || _a === void 0 ? void 0 : _a.properties) === null || _b === void 0 ? void 0 : _b.city;
         if (city !== undefined && city !== null) {
-            const locationElement = currentLocation;
-            locationElement.textContent = city;
-            console.log(city + "<-!!!");
-            return city;
+            currentLocation.textContent = city;
+            console.log(currentLocation.textContent + "<--!!!textContent!!!");
         }
         else {
             return;
