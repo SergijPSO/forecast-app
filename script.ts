@@ -126,10 +126,14 @@ function errorCallback(error: GeolocationPositionError): void {
   switchVisibility();
 }
 
-// Getting coordinates if geolocation is allowed
-function getCoordinates(position: GeolocationPosition): any {
-  getWeatherData(position.coords.latitude, position.coords.longitude);
-  getCity(position.coords.latitude, position.coords.longitude);
+function getCoordinates(position: GeolocationPosition | undefined): any {
+  if (position && position.coords) {
+    getWeatherData(position.coords.latitude, position.coords.longitude);
+    getCity(position.coords.latitude, position.coords.longitude);
+  } else {
+    console.log("Unable to get coordinates.");
+    switchVisibility();
+  }
 }
 
 // Creating overlay and spinner elements
