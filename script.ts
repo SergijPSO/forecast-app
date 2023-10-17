@@ -67,7 +67,7 @@ function getCity(latitude: number, longitude: number): any {
       const result = data;
       const city = result.features[0]?.properties?.city;
       if (city !== undefined && city !== null) {
-        currentLocation.textContent = city;
+        currentLocation.innerHTML = city;
         console.log(currentLocation.textContent + "<--!!!textContent!!!");
       } else {
         return;
@@ -84,7 +84,6 @@ function validateEnglishInput(inputElement: HTMLInputElement): any {
   const englishLetters = /^[A-Za-z\s\-]*$/;
   if (!englishLetters.test(inputValue)) {
     inputElement.value = inputValue.replace(/[^A-Za-z\s\-]/g, "");
-    console.log(inputValue + "!!!!!!!!!!");
   }
 }
 
@@ -99,7 +98,6 @@ async function getWeatherData(
   await fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      // console.log(`From the fetch: ${data} <--!!!`);
       changeBackground(data.days[0].icon);
       setUpInterface(data, city);
     })

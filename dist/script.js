@@ -67,7 +67,7 @@ function getCity(latitude, longitude) {
         const result = data;
         const city = (_b = (_a = result.features[0]) === null || _a === void 0 ? void 0 : _a.properties) === null || _b === void 0 ? void 0 : _b.city;
         if (city !== undefined && city !== null) {
-            currentLocation.textContent = city;
+            currentLocation.innerHTML = city;
             console.log(currentLocation.textContent + "<--!!!textContent!!!");
         }
         else {
@@ -84,7 +84,6 @@ function validateEnglishInput(inputElement) {
     const englishLetters = /^[A-Za-z\s\-]*$/;
     if (!englishLetters.test(inputValue)) {
         inputElement.value = inputValue.replace(/[^A-Za-z\s\-]/g, "");
-        console.log(inputValue + "!!!!!!!!!!");
     }
 }
 // Using API to fetch weather data
