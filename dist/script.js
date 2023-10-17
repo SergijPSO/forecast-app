@@ -63,16 +63,16 @@ function getCity(latitude, longitude) {
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
-        var _a, _b;
         const result = data;
-        const city = (_b = (_a = result.features[0]) === null || _a === void 0 ? void 0 : _a.properties) === null || _b === void 0 ? void 0 : _b.city;
-        if (city !== undefined && city !== null) {
-            currentLocation.innerHTML = city;
-            console.log(currentLocation.textContent + "<--!!!textContent!!!");
-        }
-        else {
-            return;
-        }
+        // const city = result.features[0].properties.city;
+        currentLocation.textContent = result.features[0].properties.city;
+        // if (city !== undefined && city !== null) {
+        // currentLocation.innerHTML = city;
+        //   console.log(city + "____!!!!!______");
+        //   console.log(currentLocation.textContent + "<--!!!textContent!!!");
+        // } else {
+        //   return;
+        // }
     })
         .catch((error) => {
         console.log("error", error);
@@ -93,7 +93,6 @@ function getWeatherData(latitude, longitude, city) {
         yield fetch(url)
             .then((response) => response.json())
             .then((data) => {
-            // console.log(`From the fetch: ${data} <--!!!`);
             changeBackground(data.days[0].icon);
             setUpInterface(data, city);
         })

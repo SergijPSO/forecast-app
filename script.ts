@@ -65,13 +65,15 @@ function getCity(latitude: number, longitude: number): any {
     .then((response) => response.json())
     .then((data) => {
       const result = data;
-      const city = result.features[0]?.properties?.city;
-      if (city !== undefined && city !== null) {
-        currentLocation.innerHTML = city;
-        console.log(currentLocation.textContent + "<--!!!textContent!!!");
-      } else {
-        return;
-      }
+      // const city = result.features[0].properties.city;
+      currentLocation.textContent = result.features[0].properties.city;
+      // if (city !== undefined && city !== null) {
+      // currentLocation.innerHTML = city;
+      //   console.log(city + "____!!!!!______");
+      //   console.log(currentLocation.textContent + "<--!!!textContent!!!");
+      // } else {
+      //   return;
+      // }
     })
     .catch((error) => {
       console.log("error", error);
